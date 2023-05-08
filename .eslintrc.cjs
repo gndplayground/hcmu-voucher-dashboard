@@ -15,5 +15,6 @@ module.exports = {
   },
   rules: {
     'import/order': 1,
+    'vue/multi-word-component-names': 0
   }
 }

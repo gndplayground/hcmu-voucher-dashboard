@@ -20,7 +20,8 @@ module.exports = {
     'leading-9',
     'shadow-lg',
     'bg-opacity-50',
-    'dark:bg-opacity-80'
+    'dark:bg-opacity-80',
+    'text-2xl'
   ],
   theme: {
     extend: {

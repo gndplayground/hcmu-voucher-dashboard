@@ -8,7 +8,7 @@ const logout = useLogout()
 
 <template>
   <nav
-    class="fixed z-50 w-full bg-white border-b border-gray-200 sm:py-2 dark:bg-gray-800 dark:border-gray-700"
+    class="fixed z-50 w-full bg-white border-b border-gray-200 sm:py-2 dark:bg-gray-900 dark:border-gray-700"
   >
     <div class="py-3 px-4">
       <div class="flex items-center justify-between">

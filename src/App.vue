@@ -10,12 +10,7 @@ const route = router.currentRoute
 </script>
 
 <template>
-  <ToastProvider
-    :transition="'fade'"
-    :toast="{
-      class: 'sasa'
-    }"
-  >
+  <ToastProvider :transition="'fade'">
     <RouterView name="Navbar" />
     <div class="flex overflow-hidden">
       <RouterView name="Sidebar" />

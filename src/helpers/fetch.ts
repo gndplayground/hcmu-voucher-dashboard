@@ -27,8 +27,11 @@ export const axiosInstance = axios.create({
   withCredentials: true
 })
 
+axiosInstance.defaults.withCredentials = true
+
 const refreshTokenUrl = `${appConfig.apiHost}/auth/refresh-token`
 const logoutUrl = `${appConfig.apiHost}/auth/logout`
+const whiteListUrls = [refreshTokenUrl, logoutUrl, `${appConfig.apiHost}/auth/login`]
 
 axiosInstance.interceptors.response.use(
   (response) => {
@@ -39,8 +42,7 @@ axiosInstance.interceptors.response.use(
 
     const authStore = useAuthStore()
 
-    if (originalRequest.url === refreshTokenUrl || originalRequest.url === logoutUrl) {
-      authStore.user = undefined
+    if (originalRequest.url && whiteListUrls.includes(originalRequest.url)) {
       return Promise.reject(error)
     }
 
@@ -50,7 +52,6 @@ axiosInstance.interceptors.response.use(
     }
 
     if (error.response.status !== 401) {
-      authStore.user = undefined
       return Promise.reject(error)
     }
 
@@ -62,17 +63,18 @@ axiosInstance.interceptors.response.use(
 
       return new Promise((resolve, reject) => {
         axiosInstance
-          .post<{ token: string; user: User }>(refreshTokenUrl)
+          .post<{ data: { token: string; user: User } }>(refreshTokenUrl)
           .then((res) => {
-            authStore.user = res.data.user
+            authStore.user = res.data.data.user
 
             resolve(axiosInstance(originalRequest))
 
-            handleQueue(null, res.data.token)
+            handleQueue(null, res.data.data.token)
           })
           .catch((err) => {
             handleQueue(err)
             reject(err)
+            authStore.user = undefined
           })
           .then(() => {
             isRefreshing = false

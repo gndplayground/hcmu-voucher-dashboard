@@ -59,26 +59,27 @@ export function useLogin() {
           token: string
           user: User
         }
-      }>(`${appConfig.apiHost}/auth/login`, data, {
-        withCredentials: true
-      })
+      }>(`${appConfig.apiHost}/auth/login`, data)
       authStore.user = result.data.data.user
       localStorage.setItem('user', JSON.stringify(result.data.data.user))
     },
-    onError(error, variables, context) {
+    onError(error) {
       if ((error as any).isAxiosError) {
         const axiosError = error as AxiosError
         if (axiosError.response?.status === 401) {
           toast.add({
             type: 'danger',
             text: 'Invalid credentials',
-            time: 50000,
-            componentProps: {
-              class: 'sasasasa'
-            }
+            time: 5000
           })
+          return
         }
       }
+      toast.add({
+        type: 'danger',
+        text: `Lỗi ${(error as any)?.message || error}`,
+        time: 5000
+      })
     }
   })
 }
@@ -93,9 +94,7 @@ export function useLogout() {
           token: string
           user: User
         }
-      }>(`${appConfig.apiHost}/auth/logout`, data, {
-        withCredentials: true
-      })
+      }>(`${appConfig.apiHost}/auth/logout`, data)
     },
     onSettled: () => {
       authStore.user = undefined
