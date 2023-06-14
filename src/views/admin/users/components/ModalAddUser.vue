@@ -42,7 +42,7 @@ function handleAdd(values: Record<string, any>) {
 <template>
   <Modal @close="props.onClose">
     <template #header>
-      <AppText variant="title"> Thêm người dùng </AppText>
+      <AppText variant="title"> Add user </AppText>
     </template>
     <template #body>
       <Form class="block mx-auto" :validation-schema="schema" @submit="handleAdd">
@@ -56,21 +56,21 @@ function handleAdd(values: Record<string, any>) {
           <div class="mt-4">
             <ValidationInput
               name="password"
-              placeholder="Mật khẩu"
+              placeholder="Password"
               type="password"
-              label="Mật khẩu"
+              label="Password"
               :disabled="createUser.isLoading.value"
             />
           </div>
           <div class="mt-4">
-            <ValidationSelect name="role" label="Quyền hạn" :disabled="createUser.isLoading.value">
+            <ValidationSelect name="role" label="Role" :disabled="createUser.isLoading.value">
               <option value="USER">USER</option>
               <option value="COMPANY">COMPANY</option>
               <option value="ADMIN">ADMIN</option>
             </ValidationSelect>
           </div>
           <div class="text-center mt-4">
-            <Button color="default" :disabled="createUser.isLoading.value">Thêm</Button>
+            <Button color="default" :disabled="createUser.isLoading.value">Add</Button>
           </div>
         </div>
       </Form>

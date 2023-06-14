@@ -84,6 +84,9 @@ export function useUpdateUser(
       role?: Role
       id: number
       isDisabled?: boolean
+      profile?: {
+        companyId?: number
+      }
     }) => {
       await axiosInstance.patch(`${appConfig.apiHost}/admin/users/${data.id}`, data)
     },

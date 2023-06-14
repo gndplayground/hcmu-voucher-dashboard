@@ -1,3 +1,5 @@
+import type { Company } from './company'
+
 export enum Role {
   ADMIN = 'ADMIN',
   USER = 'USER',
@@ -11,4 +13,7 @@ export interface User {
   createdAt: string
   isLocked: boolean
   isDisabled: boolean
+  profile?: {
+    company?: Company
+  }
 }

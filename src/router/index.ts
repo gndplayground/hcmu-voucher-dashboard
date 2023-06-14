@@ -27,6 +27,10 @@ const router = createRouter({
         {
           path: 'users',
           component: () => import('@/views/AdminUserView.vue')
+        },
+        {
+          path: 'companies',
+          component: () => import('@/views/AdminCompanyView.vue')
         }
       ]
     }
